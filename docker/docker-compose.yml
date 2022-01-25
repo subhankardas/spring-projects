@@ -3,19 +3,18 @@ version: '3'
 services:
   # Rabbit messaging queue
   rabbitmq:
-    image: rabbitmq:management
+    image: rabbitmq:3-management-alpine
     container_name: rabbitmq
     environment:
-      - RABBITMQ_DEFAULT_USER= user
-      - RABBITMQ_DEFAULT_PASS= user
-      - RABBITMQ_DEFAULT_VHOST= rabbitmq-vhost
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=pass
     volumes:
       - rabbitmq_data:/etc/rabbitmq/
       - rabbitmq_data:/var/lib/rabbitmq/
       - rabbitmq_data:/var/log/rabbitmq/
     ports:
-      - 5672:5672
-      - 15672:15672
+      - "5672:5672"
+      - "15672:15672"
 
   # Redis distributed cache
   redis:
@@ -26,7 +25,7 @@ services:
       - REDIS_PASSWORD=password
       - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
     ports:
-      - 6379:6379
+      - "6379:6379"
     volumes:
       - redis_data:/redis/data
 
@@ -35,8 +34,8 @@ services:
     image: neo4j
     container_name: neo4j
     ports:
-      - 7474:7474
-      - 7687:7687
+      - "7474:7474"
+      - "7687:7687"
     volumes:
       - neo4j_data:/data
       - neo4j_data:/logs
@@ -55,7 +54,7 @@ services:
     volumes:
       - mongo_data:/data/db
     ports:
-      - 27017:27017
+      - "27017:27017"
     restart: unless-stopped
 
   # Zookeeper for Kafka
@@ -66,7 +65,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     ports:
-      - 22181:2181
+      - "22181:2181"
 
   # Kafka
   kafka:
@@ -75,7 +74,7 @@ services:
     depends_on:
       - zookeeper
     ports:
-      - 29092:29092
+      - "29092:29092"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -89,7 +88,7 @@ services:
     image: mysql:latest
     container_name: mysql
     ports:
-      - 3306:3306
+      - "3306:3306"
     restart: always
     environment:
       MYSQL_DATABASE: test
@@ -112,7 +111,7 @@ services:
     expose:
       - 5432
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       - POSTGRES_PASSWORD=admin
       - POSTGRES_USER=postgres
