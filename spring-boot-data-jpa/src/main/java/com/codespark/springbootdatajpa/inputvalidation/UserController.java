@@ -5,16 +5,24 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.codespark.springbootdatajpa.datajpa.UserService;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
+
+    @Autowired
+    private UserService userService;
 
     /**
      * Endpoint to add user data with field specific input validations. If any error
@@ -38,7 +46,17 @@ public class UserController {
                     .map(error -> new InputError(((FieldError) error).getField(), error.getDefaultMessage()))
                     .collect(Collectors.toList());
         }
+
+        userService.save(user);
         return null;
+    }
+
+    /**
+     * Example request: GET localhost:8080/users?email=john@doe
+     */
+    @GetMapping
+    public User findUserByEmail(@RequestParam String email) {
+        return userService.findUserByEmail(email);
     }
 
 }

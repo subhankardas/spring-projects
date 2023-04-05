@@ -34,23 +34,29 @@ public class UserValidatorTests {
     }
 
     @Test
-    public void validateSmallName() {
+    public void validateSmallNameViolation() {
+        // Given a name that is too short
         User user = autoFillUserData();
         user.setName("Jo");
 
+        // When we validate it
         Set<ConstraintViolation<User>> violations = validator.validate(user);
 
+        // Then we should get a violation
         assertFalse(violations.isEmpty());
         assertEquals("Name should be within 3 to 30 characters.", violations.iterator().next().getMessage());
     }
 
     @Test
-    public void validateNullPassword() {
+    public void validateNullPasswordViolation() {
+        // Given a null password
         User user = autoFillUserData();
         user.setPassword(null);
 
+        // When we validate it
         Set<ConstraintViolation<User>> violations = validator.validate(user);
 
+        // Then we should get a violation
         assertFalse(violations.isEmpty());
         assertEquals(2, violations.size());
     }
