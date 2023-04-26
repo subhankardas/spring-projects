@@ -27,7 +27,7 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - redis_data:/redis/data
+      - redis_data:/data
 
   # Neo4j graph DB
   neo4j:
@@ -42,7 +42,7 @@ services:
       - neo4j_data:/plugins
       - neo4j_data:/import
     environment:
-      NEO4J_AUTH: neo4j/pass
+      NEO4J_AUTH: neo4j/pass@123
 
   # Mongo noSQL DB
   mongodb:
@@ -53,6 +53,7 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
     volumes:
       - mongo_data:/data/db
+      - mongo_data:/data/configdb
     ports:
       - "27017:27017"
     restart: unless-stopped
@@ -64,6 +65,10 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+    volumes:
+      - zookeeper_data:/var/lib/zookeeper/data
+      - zookeeper_data:/etc/zookeeper/secrets
+      - zookeeper_logs:/var/lib/zookeeper/log
     ports:
       - "22181:2181"
 
@@ -82,6 +87,9 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+      - kafka_data:/etc/kafka/secrets
 
   # MySQL DB
   mysql:
@@ -128,7 +136,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - pgadmin_data:/var/lib/pgadmin
     ports:
       - ${PGADMIN_PORT:-5050}:80
     restart: unless-stopped
@@ -140,6 +148,10 @@ volumes:
   mongo_data: null
   mysql_data: null
   postgres_data: null
+  pgadmin_data: null
+  zookeeper_data: null
+  zookeeper_logs: null
+  kafka_data: null
 
 networks:
   backend: null
