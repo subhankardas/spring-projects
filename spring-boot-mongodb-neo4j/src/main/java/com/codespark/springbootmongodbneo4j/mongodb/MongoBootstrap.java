@@ -30,6 +30,7 @@ public class MongoBootstrap implements CommandLineRunner {
     }
 
     private void saveTutorials() {
+        tutorialRepository.deleteAll();
         tutorialRepository.save(new Tutorial(1, Arrays.asList("Java", "Spring"), new Author("John", 4.2f)));
         tutorialRepository.save(new Tutorial(2, Arrays.asList("Spring", "Web"), new Author("Mary", 3.1f)));
         tutorialRepository.save(new Tutorial(3, Arrays.asList("React", "UI"), new Author("Jane", 4f)));
