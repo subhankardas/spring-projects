@@ -1,0 +1,9 @@
+{
+    "properties": [
+        {
+            "name": "files.storage.location",
+            "type": "java.lang.String",
+            "description": "Local storage path for uploading files."
+        }
+    ]
+}

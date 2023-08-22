@@ -3,8 +3,6 @@ package com.codespark.springbootdatajpa.inputvalidation;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -16,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codespark.springbootdatajpa.datajpa.UserService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/users")

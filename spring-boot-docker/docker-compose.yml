@@ -1,5 +1,7 @@
-version: '3'
+version: "3"
+
 services:
+  # account service container
   accounts-service:
     container_name: accounts-service
     image: accounts-service
@@ -14,6 +16,7 @@ services:
     depends_on:
       - mysql
 
+  # mysql container
   mysql:
     image: mysql:latest
     container_name: mysql

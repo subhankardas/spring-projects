@@ -2,16 +2,14 @@ package com.codespark.springbootfilebatch.batchprocessing;
 
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobParameter;
 import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.JobParametersInvalidException;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
@@ -41,11 +39,10 @@ public class EmployeeJobLauncher implements CommandLineRunner {
     public BatchStatus startBatchJob() throws JobExecutionAlreadyRunningException, JobRestartException,
             JobInstanceAlreadyCompleteException, JobParametersInvalidException {
         // Setup some job parameters for logging
-        Map<String, JobParameter> paramsMap = new HashMap<>();
-        paramsMap.put("TIME", new JobParameter(new Date()));
-        paramsMap.put("BY_USER", new JobParameter("John Doe"));
-
-        JobParameters params = new JobParameters(paramsMap);
+        JobParameters params = new JobParametersBuilder()
+                .addDate("TIME", new Date(), true)
+                .addString("BY_USER", "John Doe", true)
+                .toJobParameters();
 
         // Start batch job execution
         JobExecution jobExecution = jobLauncher.run(employeeBatchJob, params);
