@@ -13,9 +13,9 @@ public class AlertReceiver {
     private final Logger log = LoggerFactory.getLogger(AlertReceiver.class);
 
     @KafkaListener(topics = "alerts", groupId = "alerts-group")
-    public void receive(AlertMessage<String> message, @Header(KafkaHeaders.RECEIVED_PARTITION_ID) Integer partition,
+    public void receive(AlertMessage<String> message, @Header(KafkaHeaders.RECEIVED_PARTITION) Integer partition,
             @Header(KafkaHeaders.OFFSET) Long offset) {
-        log.info("Received alert: {}", message);
+        log.info("Received alert: {} at partition: {}, offset: {}", message, partition, offset);
     }
 
 }

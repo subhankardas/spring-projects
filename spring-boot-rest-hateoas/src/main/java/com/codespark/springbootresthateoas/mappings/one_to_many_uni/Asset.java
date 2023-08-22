@@ -1,7 +1,7 @@
 package com.codespark.springbootresthateoas.mappings.one_to_many_uni;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

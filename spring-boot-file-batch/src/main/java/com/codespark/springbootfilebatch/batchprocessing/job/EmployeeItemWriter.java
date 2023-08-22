@@ -3,6 +3,7 @@ package com.codespark.springbootfilebatch.batchprocessing.job;
 import org.springframework.batch.item.Chunk;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 import com.codespark.springbootfilebatch.batchprocessing.Employee;
@@ -15,7 +16,7 @@ public class EmployeeItemWriter implements ItemWriter<Employee> {
     private EmployeeRepository employeeRepository;
 
     @Override
-    public void write(Chunk<? extends Employee> employees) throws Exception {
+    public void write(@NonNull Chunk<? extends Employee> employees) throws Exception {
         employeeRepository.saveAll(employees);
     }
 

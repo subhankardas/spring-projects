@@ -3,10 +3,10 @@ package com.codespark.springbootresthateoas.mappings.many_to_many_bi;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 

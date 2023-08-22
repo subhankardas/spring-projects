@@ -2,8 +2,8 @@ package com.codespark.springbootresthateoas.mappings.one_to_one_uni;
 
 import java.time.LocalDate;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
 import lombok.Data;
 
