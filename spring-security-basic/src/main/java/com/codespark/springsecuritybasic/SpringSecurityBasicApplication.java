@@ -1,13 +1,13 @@
-package com.codespark.basicsecurity;
+package com.codespark.springsecuritybasic;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringSecurityApplication {
+public class SpringSecurityBasicApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringSecurityApplication.class, args);
+		SpringApplication.run(SpringSecurityBasicApplication.class, args);
 	}
 
 }
