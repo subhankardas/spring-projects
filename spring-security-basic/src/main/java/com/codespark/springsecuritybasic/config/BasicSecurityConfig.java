@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,7 +21,7 @@ public class BasicSecurityConfig {
      * Step 5 - User details service bean for auth provider is created using simple
      * in memory user details manager to store user details.
      */
-    @Bean
+    // @Bean // commented out to provide custom user details service implementation
     public UserDetailsService userDetailsServiceInMemory() {
         // Create user details for auth provider
         UserDetails user = User.withUsername("user").password("{noop}password").roles("USER") // simple user
@@ -52,7 +53,8 @@ public class BasicSecurityConfig {
                         .requestMatchers("/private/watchlist/**").hasRole("USER") // for watch list requests, allow user
                         .requestMatchers("/private/**").hasRole("ADMIN") // for private requests, allow admin users
                         .anyRequest().authenticated()) // any other requests, require authentication
-                .httpBasic(withDefaults());
+                .httpBasic(withDefaults())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return http.build();
     }
