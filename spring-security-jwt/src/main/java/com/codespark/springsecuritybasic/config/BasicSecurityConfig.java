@@ -23,7 +23,7 @@ public class BasicSecurityConfig {
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http.cors(cors -> cors.disable()).csrf(csrf -> csrf.disable())
                                 .authorizeHttpRequests((authorize) -> authorize
-                                                .requestMatchers("/public/**").permitAll()
+                                                .requestMatchers("/public/**", "/login").permitAll()
                                                 .requestMatchers("/private/watchlist/**").hasRole("USER")
                                                 .requestMatchers("/private/**").hasRole("ADMIN")
                                                 .anyRequest().authenticated())

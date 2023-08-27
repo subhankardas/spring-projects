@@ -25,3 +25,17 @@ The JWT typically looks like:
 ```
 <header>.<payload>.<signature>
 ```
+### Simple Authorization Server
+Now to enable our server to provide signed JWT based on user credentials. We will need to perform the following steps:
+
+5. Add a new */login* endpoint that accepts user credentials and authenticate based on stored user details in database.
+6. If user is present and password matches, we generate the token based of stored user roles and return in the */login* endpoint.
+7. We will also add the JWT expiration check in our *JwtAuthenticationFilter* implementation along with token validation before setting the username and password authentication in the *SecurityContextHolder*.
+8. Now on restarting the server we can login with valid credentials and access secured resources with the new generated JWT. Also note that the generated token has an expiration configured in the properties.
+```bash
+curl --location 'http://localhost:8080/login' --header 'Content-Type: application/json' \
+--data '{
+    "username": "user",
+    "password": "password"
+}'
+```
