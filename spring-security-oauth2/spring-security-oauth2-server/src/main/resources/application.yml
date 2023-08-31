@@ -1,0 +1,23 @@
+server:
+  port: 8000
+
+spring:
+  security:
+    oauth2:
+      authorizationserver:
+        client:
+          
+          client-1: # register our custom client
+            registration:
+              client-id: "client" # client ID for getting access token
+              client-secret: "{bcrypt}$2a$10$jdJGhzsiIqYFpjJiYWMl/eKDOd8vdyQis2aynmFN0dgJ53XvpzzwC" # the client secret is "secret" (without quotes)
+              client-authentication-methods: "client_secret_basic" # use basic authorization for token request
+              authorization-grant-types: "client_credentials"
+              scopes: "user.read,user.write" # our custom scopes
+
+            token:
+              access-token-time-to-live: 30s # configure token expiration
+
+# logging:
+#   level:
+#     org.springframework.security: trace
