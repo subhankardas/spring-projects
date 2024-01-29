@@ -1,0 +1,17 @@
+server:
+  port: 8081
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          client-1: # register our custom client
+            client-id: client # client ID for getting access token
+            client-secret: secret # client secret
+            authorization-grant-type: client_credentials
+            scope: "user.read,user.write"
+
+        provider:
+          client-1:
+            token-uri: http://localhost:8000/oauth2/token
