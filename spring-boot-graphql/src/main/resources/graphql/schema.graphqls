@@ -1,0 +1,18 @@
+type Query {
+  getMovieBy(title: String): Movie
+}
+
+type Movie {
+  title: String
+  year: String
+  genre: String
+  director: String
+  actors: String
+  plot: String
+  audience: Audience
+}
+
+type Audience {
+  rating: String
+  type: String
+}
