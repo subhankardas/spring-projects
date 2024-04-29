@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: reactive-elasticsearch
+
+logging:
+  level:
+    root: INFO
+    "[org.elasticsearch.client]": ERROR
+
+elasticsearch:
+  host: localhost
+  port: 9200

@@ -1,0 +1,68 @@
+version: "3.0"
+
+services:
+  # Elasticsearch node1
+  elasticsearch1:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+    container_name: elasticsearch1
+    environment:
+      - cluster.name=${CLUSTER_NAME}
+      - node.name=elasticsearch1
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.monitoring.collection.enabled=true
+      - xpack.monitoring.exporters.remote.type=http
+      - xpack.monitoring.exporters.remote.host=monitor
+      - discovery.seed_hosts=elasticsearch1,elasticsearch2,elasticsearch3
+      - cluster.initial_master_nodes=elasticsearch1,elasticsearch2,elasticsearch3
+      - xpack.security.enabled=false
+    ports:
+      - "19200:9200"
+
+  # Elasticsearch node2
+  elasticsearch2:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+    container_name: elasticsearch2
+    environment:
+      - cluster.name=${CLUSTER_NAME}
+      - node.name=elasticsearch2
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.monitoring.collection.enabled=true
+      - xpack.monitoring.exporters.remote.type=http
+      - xpack.monitoring.exporters.remote.host=monitor
+      - discovery.seed_hosts=elasticsearch1,elasticsearch2,elasticsearch3
+      - cluster.initial_master_nodes=elasticsearch1,elasticsearch2,elasticsearch3
+      - xpack.security.enabled=false
+    ports:
+      - "29200:9200"
+
+  # Elasticsearch node3
+  elasticsearch3:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+    container_name: elasticsearch3
+    environment:
+      - cluster.name=${CLUSTER_NAME}
+      - node.name=elasticsearch3
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.monitoring.collection.enabled=true
+      - xpack.monitoring.exporters.remote.type=http
+      - xpack.monitoring.exporters.remote.host=monitor
+      - discovery.seed_hosts=elasticsearch1,elasticsearch2,elasticsearch3
+      - cluster.initial_master_nodes=elasticsearch1,elasticsearch2,elasticsearch3
+      - xpack.security.enabled=false
+    ports:
+      - "39200:9200"
+
+  # Elasticsearch master node
+  monitor:
+    image: docker.elastic.co/elasticsearch/elasticsearch:${ELASTIC_VERSION}
+    container_name: monitor
+    environment:
+      - cluster.name=docker-monitor-cluster
+      - node.name=monitor
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.monitoring.collection.enabled=false
+      - discovery.seed_hosts=monitor
+      - cluster.initial_master_nodes=monitor
+      - xpack.security.enabled=false
+    ports:
+      - "9200:9200"
