@@ -1,0 +1,43 @@
+version: "3"
+
+services:
+  spring-boot-k8s:
+    container_name: spring-boot-k8s
+    image: spring-boot-k8s
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+    environment:
+      - "SPRING_PROFILES_ACTIVE=prod" # set profile to prod to run our application
+    networks:
+      - backend
+    links:
+      - mysqldb
+    labels:
+      kompose.service.type: loadbalancer # expose to load balancer
+
+  mysqldb:
+    image: mysql:8.0.12
+    command: --default-authentication-plugin=mysql_native_password
+    container_name: mysqldb
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: movies_db
+      MYSQL_USER: db_admin
+      MYSQL_PASSWORD: admin@123
+      MYSQL_ROOT_PASSWORD: admin123
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - backend
+
+volumes:
+  mysql_data: null
+
+networks:
+  backend: null

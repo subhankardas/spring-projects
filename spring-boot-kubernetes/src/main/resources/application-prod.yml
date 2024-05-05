@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: spring-boot-k8s
+
+  r2dbc:
+    url: r2dbc:mysql://mysqldb:3306/movies_db
+    username: db_admin
+    password: admin@123
+  sql:
+    init:
+      mode: always # required to run schema.sql file
