@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: booking-service
+  grpc:
+    server:
+      port: 9091
+  datasource:
+    url: jdbc:h2:mem:moviesdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: admin
+    password: password
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    # show-sql: true
+
+server:
+  port: 8081

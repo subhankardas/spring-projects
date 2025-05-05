@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: movie-service
+  grpc:
+    server:
+      port: 9090
+  datasource:
+    url: jdbc:h2:mem:moviesdb;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: admin
+    password: password
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    # show-sql: true

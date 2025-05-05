@@ -126,10 +126,10 @@ services:
       - POSTGRES_DB=testdb
     restart: unless-stopped
 
-  # Postgres admin
+  # Postgres Admin
   pgadmin:
     container_name: pgadmin
-    image: dpage/pgadmin4:4.16
+    image: dpage/pgadmin4:latest
     networks:
       - backend
     environment:

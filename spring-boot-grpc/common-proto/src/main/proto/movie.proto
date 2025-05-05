@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.codespark.grpc.common";
+
+service MovieService {
+    rpc GetMovie(GetMovieRequest) returns (MovieDetails); // Unary RPC call: one request, one response.
+    rpc GetMoviesByGenre(GetMoviesByGenreRequest) returns (stream MovieDetails); // Server-streaming RPC call: one request, many responses
+    rpc SaveMovies(stream MovieDetails) returns (SaveMoviesResponse); // Client-streaming RPC call: many requests, one response
+    rpc GetRatings(stream GetMovieRequest) returns (stream MovieRating); // Bi-directional streaming RPC call: many requests, many responses
+}
+
+message GetMovieRequest {
+    uint32 id = 1;
+}
+
+message GetMoviesByGenreRequest {
+    string genre = 1;
+}
+
+message MovieDetails {
+    uint32 id = 1;
+    string title = 2;
+    string genre = 3;
+    uint32 release = 4;
+}
+
+message SaveMoviesResponse {
+    uint32 count = 1;
+}
+
+message MovieRating {
+    uint32 id = 1;
+    string title = 2;
+    float rating = 3;
+}
